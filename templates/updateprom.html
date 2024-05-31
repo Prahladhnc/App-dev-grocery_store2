@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+    <head>    <meta charset="UTF-8">
+        <meta name="viewport">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <style>
+            body{
+                margin: 0;
+                padding: 0;
+                font-family: Arial, sans-serif;
+                flex-direction: column;
+                min-height: 100vh;
+                
+                   <!----background-image: url('/static/bgimg.jpg');
+                    background-size: 1500px 1000px;
+                    background-repeat: no-repeat; --> 
+            }
+    
+            header {
+                background-color: #007bff; 
+                color: #fff; 
+                text-align: center;
+                padding: 20px 0;
+            }
+            main {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                margin: 2rem;
+            }
+            footer {
+                background-color: #007bff;
+                color: #fff; 
+                padding: 10px;
+                text-align: center;
+                font-size: 14px;
+                position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            }
+            .login-form-container {
+                width: 25rem;
+                background-color: #00000054;
+                z-index: 1;
+                position: absolute;
+                top: 12rem;
+                left: 35rem;
+                color: white;
+                padding: 1rem;
+                border-radius: 10px;
+                text-align: center;
+            }
+            form {
+                max-width: 400px;
+                margin: 0 auto;
+                padding: 2rem;
+                background-color: #007bff;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+                border-radius: 5px;
+                margin-bottom: 2rem;
+            }
+            input {
+                width: 100%;
+                padding: 0.5rem;
+                margin-bottom: 1rem;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                outline: none;
+            }
+            select {
+                width: 100%;
+                padding: 0.5rem;
+                margin-bottom: 1rem;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                outline: none;
+            }
+            input[type="submit"] {
+                background-color: #333;
+                color: white;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+    
+            input[type="submit"]:hover {
+                background-color: black;
+            }
+            i {
+                text-align:bottom;
+                background-color: #007bff;
+                color: #fff; 
+                padding: 10px;
+                text-align: center;
+                bottom: 1rem;
+                
+            }
+        </style>
+        <title>Update Product</title></head>
+<body>
+    <header>
+        <h1>GROCY-QUICK</h1>
+        </header>
+        <main>
+<h1>UPDATE Product</h1>
+<form action='/managerhome/{{manager_id}}/updatepro/{{product["pid"]}}' method="POST" id="update-Product" enctype="multipart/form-data">
+    <div>
+    <label>Product ID:</label>
+    <input type="text" name="pid" value="{{product['pid']}}" disabled />
+    </div>
+    <div>
+    <label>New Product Name:</label>
+    <input type="text" name="pname" value="{{product['pname']}}" required />
+    </div>
+    <div>
+    <label>Manufacturer:</label>
+    <input type="text" name="manu" value="{{product['manu']}}" required />
+    </div>
+    <div>
+        <div>
+            <label for="cid">New Category</label>
+        <select name="cid" id="cid">
+        {% for category in categories %}
+            <option value="{{ category['cid'] }}">{{ category['cid'] }} - {{category['cname']}}</option>
+        {% endfor %}
+
+    </select>
+            </div>
+            <div>
+                <label>Change:Unit</label>
+                <select name="unit" id="unit">
+                    <option value="Rs/kg">Rs/kg</option>
+                    <option value="Rs/litre">Rs/litre</option>
+                    <option value="Rs/piece">Rs/piece</option>
+                    <option value="Rs/dozen">Rs/dozen</option>
+                </select>
+                </div>
+    <div>
+    <label>Changed Rate:</label>
+    <input type="number" name="rate" value="{{product['rate']}}" required />
+    </div>
+    <div>
+    <label>Updated Date:</label>
+    <input type="date" name="added" value="{{product['added']}}" required />
+    </div>
+    <div>
+    <label>Expiry date:</label>
+    <input type="date" name="exp" value="{{product['exp']}}" required />
+    </div>
+    <div>
+    <label>Quantity Left:</label>
+    <input type="number" name="quantity" value="{{product['quantity']}}" required />
+    </div>
+    <div>
+        <label>Change Image</label>
+        <input type="file" name="pimg" accept="image/*" >
+    </div>
+    <div>
+    <input type="submit" value = "Submit">
+    </div>
+    </form>
+</main>
+<div><a href='/managerhome/{{manager_id}}'>Go Back</a></div>
+        
+   
+</body>
+</html>

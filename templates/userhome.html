@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+    <head>    <meta charset="UTF-8">
+        <meta name="viewport">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <style>
+            body{
+                margin: 0;
+                padding: 0;
+                font-family: Arial, sans-serif;
+                flex-direction: column;
+                min-height: 100vh;
+                
+                   <!----background-image: url('/static/bgimg.jpg');
+                    background-size: 1500px 1000px;
+                    background-repeat: no-repeat; --> 
+            }
+    
+            header {
+                background-color: #007bff; 
+                color: #fff; 
+                text-align: center;
+                padding: 20px 0;
+            }
+            main {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                
+                margin: 2rem;
+            }
+            footer {
+                background-color: #007bff;
+                color: #fff; 
+                padding: 10px;
+                text-align: center;
+                font-size: 14px;
+                position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            }
+            .login-form-container {
+                width: 25rem;
+                background-color: #00000054;
+                z-index: 1;
+                position: absolute;
+                top: 12rem;
+                left: 35rem;
+                color: white;
+                padding: 1rem;
+                border-radius: 10px;
+                text-align: center;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+                border: 2px solid #ccc;
+            }
+    
+            th, td {
+                padding: 10px;
+                text-align: left;
+                border: 2px solid #ccc;
+            }
+    
+            th {
+                background-color: Yellow;
+            }
+    
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+            
+            i {
+                text-align:bottom;
+                background-color: #007bff;
+                color: #fff; 
+                padding: 10px;
+                text-align: center;
+                bottom: 1rem;
+                
+            }
+
+        </style>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
+    <title>User HOME</title>
+</head>
+<body>
+    <header>
+        <h1>GROCY-QUICK</h1>
+        </header>
+        <main>
+   <h2><center> HI {{ user_id }}</center></h2>
+   <div><a href='/userhome/{{user_id}}/wallet'> Check Wallet </a></div>
+   <div style="text-align: right;">
+    
+    <a href='/userhome/{{user_id}}/gotocart' style="text-align: right;">Check Cart</a>
+   </div> 
+    <h2>Filter by:</h2>
+    <form action="{{ url_for('user_home_sort_filter', user_id=user_id) }}" method="get">
+        <label for="sort_attribute">Sort by:     </label>
+        <select name="sort_attribute" id="sort_attribute">
+            <option value="pid">PID</option>
+            <option value="rate">Rate</option>
+            <option value="quantity">Quantity</option>
+            <option value="exp">Expiration Date</option>
+            <option value="added">Added Date</option>
+        </select>
+        <label for="category">   Filter by Category:</label>
+        <select name="category" id="category">
+            <option value="all">All</option>
+            {% for category in categories %}
+                <option value="{{ category[0] }}">{{ category[0] }}</option>
+            {% endfor %}
+
+        </select>
+        <button type="submit">Filter and Sort</button>
+    </form>
+
+    <form action="{{ url_for('user_home_search', user_id=user_id) }}" method="get">
+        <label for="search_query">Search by Name:</label>
+        <input type="text" name="search_query" id="search_query" placeholder="Enter product name">
+        <button type="submit">Search</button>
+    </form>
+    <a href="/userhome/{{user_id}}">Show all</a>
+
+
+    <table id = "products-by-date">
+        <tr>
+        <th>PNo</th>
+        <th>Pname</th>
+        <th>Manufacturer</th>
+        <th>CID</th>
+        <th>Category Name</th>
+        <th>Unit</th>
+        <th>Rate</th>
+        <th>Date added</th>
+        <th>Expiry Date</th>
+        <th>Quantity Left</th>
+        <th>Image</th>
+        <th>Actions</th>
+        </tr>
+        {% for product in products %}
+            <tr>
+            <td>{{product["pid"]}}</td>
+            <td>{{product["pname"]}}</td>
+            <td>{{product["manu"]}}</td>
+            <td>{{product["cid"]}}</td>
+            <td>{{product["cname"]}}</td>
+            <td>{{product["unit"]}}</td>
+            <td>{{product["rate"]}}</td>
+            <td>{{product["added"]}}</td>
+            <td>{{product["exp"]}}</td>
+            <td>{{product["quantity"]}}</td>
+            <td>{% if product.pimg %}
+                <img src="data:image/jpeg;base64,{{ product.pimg }}" alt="{{ product.pname }}" width="150" height="150">
+            {% else %}
+                <p>No image available</p>
+            {% endif %}</td>
+            <td><a href='/userhome/{{user_id}}/cart/{{product["pid"]}}'>Add to cart</a></td>
+            </tr>
+            {% endfor %}
+    
+    </table>
+<a href="/userhome/{{user_id}}">Show all</a>
+<br>
+<a href="/">Home</a>
+</main>
+
+
+    
+
+</body>
+</html>

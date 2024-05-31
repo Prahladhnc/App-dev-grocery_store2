@@ -1,0 +1,20 @@
+<table border="1">
+    <tr>
+      <th>Product</th>
+      <th>Category</th>
+      <th>Quantity</th>
+      <th>Rate</th>
+      <th>Total Expense</th>
+      <th>Time</th>
+    </tr>
+    {% for row in cart_data %}
+      <tr>
+        <td>{{ row["Product"] }}</td>
+        <td>{{ row["Category"] }}</td>
+        <td>{{ row["Quantity"] }}</td>
+        <td>{{ row["Rate"] }}</td>
+        <td>{{ row["Total Expense"] }}</td>
+        <td>{{ row["Date"] }}</td>
+      </tr>
+    {% endfor %}
+  </table>

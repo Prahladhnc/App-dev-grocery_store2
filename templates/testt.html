@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Click Counter</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+ <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script> 
+
+
+</head>
+<body>
+
+  <h1>Simple counter with Vue.js</h1>
+  <div id="counter">
+    <button v-on:click="increment">Click me many times!</button>  <strong id='output'>Number of clicks=0</strong>
+  </div>
+<script>
+  var num=0;
+  var counter = new Vue({
+    el: '#counter',
+    data: {
+      count: 0
+    },
+    methods: {
+      increment: function() {
+        this.count++;
+        num=this.count;
+        var output=document.getElementById("output");
+        var txt="Number of clicks="+num;
+        output.innerHTML=txt;
+      }
+
+    }
+    
+  });
+</script>
+</body>
+</html>

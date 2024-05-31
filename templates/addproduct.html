@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>    <meta charset="UTF-8">
+        <meta name="viewport">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <style>
+            body{
+                margin: 0;
+                padding: 0;
+                font-family: Arial, sans-serif;
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+    
+            header {
+                background-color: #007bff; 
+                color: #fff; 
+                text-align: center;
+                padding: 20px 0;
+            }
+            main {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+        
+                justify-content: center;
+                margin: 2rem;
+            }
+            
+            .login-form-container {
+                width: 25rem;
+                background-color: #00000054;
+                z-index: 1;
+                position: absolute;
+                top: 12rem;
+                left: 35rem;
+                color: white;
+                padding: 1rem;
+                border-radius: 10px;
+                text-align: center;
+            }
+            form {
+                max-width: 400px;
+                margin: 0 auto;
+                padding: 2rem;
+                background-color: #007bff;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+                border-radius: 5px;
+                margin-bottom: 2rem;
+            }
+            input {
+                width: 100%;
+                padding: 0.5rem;
+                margin-bottom: 1rem;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                outline: none;
+            }
+            select {
+                width: 100%;
+                padding: 0.5rem;
+                margin-bottom: 1rem;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                outline: none;
+            }
+    
+            input[type="submit"] {
+                background-color: #333;
+                color: white;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+    
+            input[type="submit"]:hover {
+                background-color: black;
+            }
+            footer {
+                background-color: #007bff;
+                color: #fff; 
+                padding: 10px;
+                text-align:bottom;
+                text-align: center;
+                font-size: 14px;
+                position: absolute;
+                bottom: 1rem;
+                left: 50%;
+                transform: translateX(-50%);
+                margin-top: auto; 
+            }
+            i {
+                text-align:bottom;
+                background-color: #007bff;
+                color: #fff; 
+                padding: 10px;
+                text-align: center;
+                bottom: 1rem;
+
+            }
+        </style>
+
+        <title>Add Product</title></head>
+<body> <header>
+    <h1>GROCY-QUICK</h1>
+    </header>
+    <main>
+    <h1>Add a Product</h1>
+    <div><a href="/adminhome/{{admin_id}}">Go back</a>
+    <br>
+    <form action="/adminhome/{{admin_id}}/addproduct" method="POST" id='add-category' enctype="multipart/form-data"  onsubmit="javascript:alert('Product Added');">
+        <div>
+        <label>Product Name</label>
+        <input type="text" name="pname" required />
+        </div>
+        <div>
+            <label>Manufactarer Name</label>
+            <input type="text" name="manu" required />
+            </div>
+            <div>
+                <label for="cid">Category</label>
+            <select name="cid" id="cid">
+            {% for category in categories %}
+                <option value="{{ category['cid'] }}">{{ category['cid'] }} - {{category['cname']}}</option>
+            {% endfor %}
+
+        </select>
+                </div>
+                <div>
+                    <label>Unit</label>
+                    <select name="unit" id="unit">
+                        <option value="Rs/kg">Rs/kg</option>
+                        <option value="Rs/litre">Rs/litre</option>
+                        <option value="Rs/piece">Rs/piece</option>
+                        <option value="Rs/kg">Rs/dozen</option>
+                    </select>
+                    </div>
+                <div>
+                    <label> Rate per Unit</label>
+                    <input type="number" name="rate" required />
+                    </div>
+                    <div>
+                        <label>Date added</label>
+                        <input type="date" name="added" required />
+                        </div>
+                        <div>
+                        <label>Expiry Date</label>
+                        <input type="date" name="exp" required />
+                        </div>
+                        <div>
+                        <label>Quantity</label>
+                        <input type="number" name="quantity" required />
+                        </div>
+                        <div>
+                            <label>Upload Image</label>
+                            <input type="file" name="pimg" accept="image/*" >
+                        </div>
+        <div>
+            <input type="submit" value = "Submit">
+            </div>
+        </form>
+    </form>
+</main>
+
+   
+
+</body>
+</html>
